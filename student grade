@@ -1,0 +1,40 @@
+package javaapplication3;
+import java.util.*;
+
+public class JavaApplication3 {
+
+    
+public static void main(String[] args) {
+        String[] studentIDs = {"S001", "S002", "S003", "S004", "S005"};
+        int[] scores = new int[5];
+        
+        Scanner obj = new Scanner(System.in);
+        
+        for (int i = 0; i < studentIDs.length; i++) {
+            System.out.print("Enter a test score for student " + studentIDs[i] + ": ");
+            try {
+                int score = obj.nextInt();
+                if (score < 0 || score > 100) {
+                    throw new ScoreException("Invalid score. Score must be between 0 and 100.");
+                }
+                scores[i] = score;
+            } catch (ScoreException e) {
+                System.out.println("Error: " + e.getMessage());
+                scores[i] = 0;
+            } catch (Exception e) {
+                System.out.println("Error: Invalid input. Please enter a numeric score.");
+                obj.next(); // Clear the input buffer
+                i--; 
+            }
+        }
+         System.out.println("\nStudent IDs and Scores:");
+        for (int i = 0; i < studentIDs.length; i++) {
+            System.out.println(studentIDs[i] + ": " + scores[i]);
+        }
+    }
+}
+public class ScoreException extends Exception {
+    public ScoreException(String message) {
+        super(message);
+    }
+}
